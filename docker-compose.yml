@@ -26,6 +26,39 @@ services:
       start_period: 60s
     volumes:
       - kafka-data:/var/lib/kafka/data
+    networks:
+      - kafka-network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    depends_on:
+      - kafka
+    networks:
+      - kafka-network
 
 volumes:
   kafka-data:
+
+networks:
+  kafka-network:
+    driver: bridge
+
+
+
+
+
+
+
+
+
+
+
+
+
+
